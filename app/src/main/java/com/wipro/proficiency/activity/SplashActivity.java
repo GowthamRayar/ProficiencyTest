@@ -1,7 +1,9 @@
-package com.wipro.proficiency;
+package com.wipro.proficiency.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.wipro.proficiency.R;
 
 public class SplashActivity extends AppCompatActivity {
 
