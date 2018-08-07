@@ -17,6 +17,7 @@ ext {
     timberVersion = '4.7.0'
     materialCircleVersion = '2.5.0'
     glideVersion = '4.7.1'
+    mockitoVersion = '1.10.19'
 
 
     //packages
@@ -35,6 +36,7 @@ ext {
     timberPackage = 'com.jakewharton.timber'
     materialCircleArc = 'com.github.rahatarmanahmed'
     glidePackage = 'com.github.bumptech.glide'
+    mockitoPackage = 'org.mockito'
 
     supportDependencies = [
             appcompact  : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
@@ -77,8 +79,8 @@ ext {
             annotation: buildDependency(supportPackage, 'support-annotations', supportVersion),
             runner    : buildDependency(testPackage, 'runner', testVersion),
             rules     : buildDependency(testPackage, 'rules', testVersion),
-            espresso  : buildDependency(espressoPackage, 'espresso-core', espressonVersion)
-
+            espresso  : buildDependency(espressoPackage, 'espresso-core', espressonVersion),
+            mockito   : buildDependency(mockitoPackage, 'mockito-core', mockitoVersion)
     ]
 
 }

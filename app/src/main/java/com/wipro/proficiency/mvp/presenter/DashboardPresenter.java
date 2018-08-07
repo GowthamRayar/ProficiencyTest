@@ -73,4 +73,8 @@ public class DashboardPresenter implements Presenter<DashboardView> {
         });
     }
 
+    public boolean isAdapterEmpty(){
+        return dashboardView.isAdapterEmpty();
+    }
+
 }

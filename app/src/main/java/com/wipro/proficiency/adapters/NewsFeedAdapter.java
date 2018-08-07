@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wipro.proficiency.R;
 import com.wipro.proficiency.mvp.model.response.NewsFeedResponse;
 import com.wipro.proficiency.mvp.model.response.Rows;
@@ -50,9 +51,15 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         Rows[] rows = newsFeedResponse.getRows();
         holder.titleText.setText(rows[position].getTitle());
         holder.captionText.setText(rows[position].getDescription());
+
         Glide.with(context)
                 .load(rows[position].getImageHref())
-                .into(holder.imageView);
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.load)
+                        .fitCenter()).into(holder.imageView);
+        /*Glide.with(context)
+                .load(rows[position].getImageHref())
+                .into(holder.imageView);*/
     }
 
     @Override

@@ -60,6 +60,7 @@ dependencies {
     //testing framework
     implementation testDependencies.junit
     testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
     androidTestImplementation testDependencies.runner
     androidTestImplementation testDependencies.rules
     androidTestImplementation testDependencies.espresso

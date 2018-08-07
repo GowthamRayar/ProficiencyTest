@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardView {
@@ -36,6 +38,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     RecyclerView mFeedView;
     @BindView(R.id.title_text)
     TextView toolBarTxt;
+    @BindView(R.id.refresh)
+    ImageView refreshIcon;
 
     @Inject
     DashboardPresenter mDashboardPresenter;
@@ -69,6 +73,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
     }
 
+    @OnClick(R.id.refresh)
+    public void refresh() {
+        showProgressDialog();
+        if (AppUtils.isNetworkAvailable(DashboardActivity.this)) {
+            mDashboardPresenter.getNewsFeed();
+        }else {
+            showError(getResources().getString(R.string.error_no_internet_available));
+        }
+    }
+
     public void initViews(){
         mProgressDialog = new ProgressDialog(this, R.style.full_screen_dialog) {
             @Override
@@ -88,13 +102,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         mFeedView.setItemAnimator(new DefaultItemAnimator());
         mFeedView.setAdapter(newsFeedAdapter);
 
-        showProgressDialog();
-        if (AppUtils.isNetworkAvailable(DashboardActivity.this)) {
-            mDashboardPresenter.getNewsFeed();
-        }else {
-            showError(getResources().getString(R.string.error_no_internet_available));
-        }
-
+        refresh();
     }
 
     private void initializePresenter()
@@ -105,6 +113,15 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public boolean isAdapterEmpty() {
+        if (newsFeedAdapter.getItemCount() == 0){
+            return true;
+        }  else {
+            return false;
+        }
     }
 
     @Override
