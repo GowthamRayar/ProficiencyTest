@@ -4,4 +4,9 @@
     <color name="app_primary_v2">#ffffff</color>
     <color name="app_primary_dark_v2">#f0f1f2</color>
     <color name="app_accent_v2">#1dbdd6</color>
+    <color name="ocean_blue">#0067a5</color>
+
+    <color name="progress_background">#0Dffffff</color>
+    <color name="dark_blue_grey">#1e2e40</color>
+    <color name="light_grey_blue">#a3bacb</color>
 </resources>

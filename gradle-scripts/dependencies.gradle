@@ -10,11 +10,14 @@ ext {
     retrofitVersion = '2.4.0'
     okhttpVersion = '3.10.0'
     gsonVersion = '2.8.0'
-
+    daggerVersion = '2.0'
     junitVersion = '4.12'
     testVersion = '0.4'
     espressonVersion = '2.2.1'
     timberVersion = '4.7.0'
+    materialCircleVersion = '2.5.0'
+    glideVersion = '4.7.1'
+
 
     //packages
     supportPackage = 'com.android.support'
@@ -23,12 +26,15 @@ ext {
     reactivePackage = 'io.reactivex.rxjava2'
     butterknifePackage = 'com.jakewharton'
     gsonPackage = 'com.google.code.gson'
+    daggerPackage = 'com.google.dagger'
     calligraphyPackage = 'uk.co.chrisjenx'
     testPackage = 'com.android.support.test'
     espressoPackage = 'com.android.support.test.espresso'
     junitPackage = 'junit'
     ioReactivePackage = 'io.reactivex'
     timberPackage = 'com.jakewharton.timber'
+    materialCircleArc = 'com.github.rahatarmanahmed'
+    glidePackage = 'com.github.bumptech.glide'
 
     supportDependencies = [
             appcompact  : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
@@ -55,10 +61,15 @@ ext {
     ]
 
     productivityDependencies = [
+            dagger                   : buildDependency(daggerPackage, 'dagger', daggerVersion),
+            daggercompiler           : buildDependency(daggerPackage, 'dagger-compiler', daggerVersion),
             calligraphy              : buildDependency(calligraphyPackage, 'calligraphy', calligraphyVersion),
             butterknife              : buildDependency(butterknifePackage, 'butterknife', butterknifeVersion),
             butterknifecompiler      : buildDependency(butterknifePackage, 'butterknife-compiler', butterknifeVersion),
-            timber                   : buildDependency(timberPackage, 'timber', timberVersion)
+            timber                   : buildDependency(timberPackage, 'timber', timberVersion),
+            materialsCircleLib       : buildDependency(materialCircleArc, 'circularprogressview', materialCircleVersion),
+            glide                    : buildDependency(glidePackage, 'glide', glideVersion),
+            glidecomplier            : buildDependency(glidePackage, 'compiler', glideVersion)
     ]
 
     testDependencies = [

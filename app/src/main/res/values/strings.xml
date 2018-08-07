@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ProficiencyTest</string>
+
+
+    <!--Dashboard Activity-->
+    <string name="generic_wait_moment">One moment please</string>
+    <string name="generic_ok">OK</string>
+    <string name="generic_alert">Hint</string>
+    <string name="generic_request_error">Error while processing the request</string>
+    <string name="error_no_internet_available">Please make sure that you are connected to the Internet.</string>
 </resources>
