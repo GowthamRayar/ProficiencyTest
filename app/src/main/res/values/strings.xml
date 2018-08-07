@@ -7,5 +7,8 @@
     <string name="generic_ok">OK</string>
     <string name="generic_alert">Hint</string>
     <string name="generic_request_error">Error while processing the request</string>
+    <string name="error_no_internet_connection">No Internet connection</string>
     <string name="error_no_internet_available">Please make sure that you are connected to the Internet.</string>
+    <string name="generic_retry">RETRY</string>
+    <string name="generic_dismiss">DISMISS</string>
 </resources>

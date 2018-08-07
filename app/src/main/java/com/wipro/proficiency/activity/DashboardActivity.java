@@ -23,6 +23,7 @@ import com.wipro.proficiency.mvp.model.response.NewsFeedResponse;
 import com.wipro.proficiency.mvp.presenter.DashboardPresenter;
 import com.wipro.proficiency.mvp.view.DashboardView;
 import com.wipro.proficiency.utils.AppUtils;
+import com.wipro.proficiency.widgets.DoubleButtonDialog;
 import com.wipro.proficiency.widgets.SingleButtonDialog;
 
 import javax.inject.Inject;
@@ -79,7 +80,14 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         if (AppUtils.isNetworkAvailable(DashboardActivity.this)) {
             mDashboardPresenter.getNewsFeed();
         }else {
-            showError(getResources().getString(R.string.error_no_internet_available));
+            new DoubleButtonDialog.Builder(this)
+                    .setTitleText(getString(R.string.error_no_internet_connection))
+                    .setMessageText(getString(R.string.error_no_internet_available))
+                    .setAcceptButton(getString(R.string.generic_retry), view -> refresh())
+                    .setCancelButton(getString(R.string.generic_dismiss), view -> {
+                        dismissProgressDialog();
+                    })
+                    .show();
         }
     }
 
@@ -155,7 +163,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         new SingleButtonDialog.Builder(this)
                 .setTitleText(R.string.generic_alert)
                 .setMessageText(R.string.generic_request_error)
-                .setErrorMessageText(message)
+                .setErrorMessageText("Response : "+message)
                 .setAcceptButton(R.string.generic_ok, view -> {
                     //No Impl needed
                 }).show();

@@ -49,17 +49,24 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Rows[] rows = newsFeedResponse.getRows();
-        holder.titleText.setText(rows[position].getTitle());
-        holder.captionText.setText(rows[position].getDescription());
+        if(rows[position].getTitle() != null){
+            holder.titleText.setText(rows[position].getTitle());
+        } else {
+            holder.titleText.setText("No Data");
+        }
+
+        if(rows[position].getDescription() != null){
+            holder.captionText.setText(rows[position].getDescription());
+        } else {
+            holder.captionText.setText("No Description ...");
+        }
+
 
         Glide.with(context)
                 .load(rows[position].getImageHref())
                 .apply(new RequestOptions()
-                        .placeholder(R.drawable.load)
+                        .placeholder(R.drawable.no_image)
                         .fitCenter()).into(holder.imageView);
-        /*Glide.with(context)
-                .load(rows[position].getImageHref())
-                .into(holder.imageView);*/
     }
 
     @Override
