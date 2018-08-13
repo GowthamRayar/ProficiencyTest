@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,11 +37,13 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class DashboardActivity extends AppCompatActivity implements DashboardView {
 
     @BindView(R.id.list_feed)
-    RecyclerView mFeedView;
+    RecyclerView feedView;
     @BindView(R.id.title_text)
     TextView toolBarTxt;
     @BindView(R.id.refresh)
     ImageView refreshIcon;
+    @BindView(R.id.swipe_to_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Inject
     DashboardPresenter mDashboardPresenter;
@@ -59,7 +62,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
     }
 
-    public void initialize() {
+    private void initialize() {
         ButterKnife.bind(this);
 
         ApplicationComponent appComponent = ((ProficiencyTestApplication)this.getApplication()).getApplicationComponent();
@@ -77,6 +80,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     @OnClick(R.id.refresh)
     public void refresh() {
         showProgressDialog();
+        updateData();
+    }
+
+    private void updateData(){
         if (AppUtils.isNetworkAvailable(DashboardActivity.this)) {
             mDashboardPresenter.getNewsFeed();
         }else {
@@ -91,7 +98,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
         }
     }
 
-    public void initViews(){
+    private void initViews(){
         mProgressDialog = new ProgressDialog(this, R.style.full_screen_dialog) {
             @Override
             protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +113,14 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
 
         newsFeedAdapter = new NewsFeedAdapter(getContext(), newsFeedResponse);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mFeedView.setLayoutManager(mLayoutManager);
-        mFeedView.setItemAnimator(new DefaultItemAnimator());
-        mFeedView.setAdapter(newsFeedAdapter);
+        feedView.setLayoutManager(mLayoutManager);
+        feedView.setItemAnimator(new DefaultItemAnimator());
+        feedView.setAdapter(newsFeedAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(
+                () -> updateData()
+        );
+
 
         refresh();
     }
@@ -136,6 +148,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardVie
     public void updateView(NewsFeedResponse response) {
         toolBarTxt.setText(response.getTitle());
         newsFeedAdapter.updateAdapter(response);
+        swipeRefreshLayout.setRefreshing(false);
         dismissProgressDialog();
     }
 

@@ -98,6 +98,6 @@ dependencies {
     implementation productivityDependencies.glide
     annotationProcessor productivityDependencies.glidecomplier
 
-    provided 'javax.annotation:jsr250-api:1.0'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
 
 }

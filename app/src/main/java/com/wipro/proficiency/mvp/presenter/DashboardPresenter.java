@@ -52,8 +52,8 @@ public class DashboardPresenter implements Presenter<DashboardView> {
 
     public void getNewsFeed() {
 
-        Observable<NewsFeedResponse> accessTokenObservable = interaction.execute().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
-        dashboardSubscription = accessTokenObservable.subscribe(new Observer<NewsFeedResponse>() {
+        Observable<NewsFeedResponse> newsFeedResponseObservable = interaction.execute().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
+        dashboardSubscription = newsFeedResponseObservable.subscribe(new Observer<NewsFeedResponse>() {
             @Override
             public void onCompleted() {
 
@@ -73,7 +73,7 @@ public class DashboardPresenter implements Presenter<DashboardView> {
         });
     }
 
-    public boolean isAdapterEmpty(){
+    public boolean isAdapterEmpty() {
         return dashboardView.isAdapterEmpty();
     }
 
