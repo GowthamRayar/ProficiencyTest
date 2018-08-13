@@ -1,0 +1,90 @@
+ext {
+    //version list
+    supportVersion = '27.1.1'
+    butterknifeVersion = '8.8.1'
+    rxadapterVersion = '2.0.0'
+    calligraphyVersion = '2.3.0'
+    rxAndroidVersion = '2.0.1'
+    rxJavaVersion = '2.0.4'
+    ioReactiveVersion = '1.1.0'
+    retrofitVersion = '2.4.0'
+    okhttpVersion = '3.10.0'
+    gsonVersion = '2.8.0'
+    daggerVersion = '2.0'
+    junitVersion = '4.12'
+    testVersion = '0.4'
+    espressonVersion = '2.2.1'
+    timberVersion = '4.7.0'
+    materialCircleVersion = '2.5.0'
+    glideVersion = '4.7.1'
+    mockitoVersion = '1.10.19'
+
+
+    //packages
+    supportPackage = 'com.android.support'
+    retrofitPackage = 'com.squareup.retrofit2'
+    okHttpPackage = 'com.squareup.okhttp3'
+    reactivePackage = 'io.reactivex.rxjava2'
+    butterknifePackage = 'com.jakewharton'
+    gsonPackage = 'com.google.code.gson'
+    daggerPackage = 'com.google.dagger'
+    calligraphyPackage = 'uk.co.chrisjenx'
+    testPackage = 'com.android.support.test'
+    espressoPackage = 'com.android.support.test.espresso'
+    junitPackage = 'junit'
+    ioReactivePackage = 'io.reactivex'
+    timberPackage = 'com.jakewharton.timber'
+    materialCircleArc = 'com.github.rahatarmanahmed'
+    glidePackage = 'com.github.bumptech.glide'
+    mockitoPackage = 'org.mockito'
+
+    supportDependencies = [
+            appcompact  : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
+            support     : buildDependency(supportPackage, 'support-v13', supportVersion),
+            design      : buildDependency(supportPackage, 'design', supportVersion),
+            recyclerview: buildDependency(supportPackage, 'recyclerview-v7', supportVersion),
+            cardview    : buildDependency(supportPackage, 'cardview-v7', supportVersion),
+            percent     : buildDependency(supportPackage, 'percent', supportVersion),
+    ]
+
+    retrofitDependencies = [
+            retrofit       : buildDependency(retrofitPackage, 'retrofit', retrofitVersion),
+            convertergson  : buildDependency(retrofitPackage, 'converter-gson', retrofitVersion),
+            okhttp         : buildDependency(okHttpPackage, 'okhttp', okhttpVersion),
+            okhttplogging  : buildDependency(okHttpPackage, 'logging-interceptor', okhttpVersion),
+            gson           : buildDependency(gsonPackage, 'gson', gsonVersion),
+            rxadapter      : buildDependency(retrofitPackage, 'adapter-rxjava', rxadapterVersion),
+            rxScheduler    : buildDependency(ioReactivePackage, 'rxandroid', ioReactiveVersion)
+    ]
+
+    reactiveDependencies = [
+            reactivexAndroid: buildDependency(reactivePackage, 'rxandroid', rxAndroidVersion),
+            reactivexJava   : buildDependency(reactivePackage, 'rxjava', rxJavaVersion)
+    ]
+
+    productivityDependencies = [
+            dagger                   : buildDependency(daggerPackage, 'dagger', daggerVersion),
+            daggercompiler           : buildDependency(daggerPackage, 'dagger-compiler', daggerVersion),
+            calligraphy              : buildDependency(calligraphyPackage, 'calligraphy', calligraphyVersion),
+            butterknife              : buildDependency(butterknifePackage, 'butterknife', butterknifeVersion),
+            butterknifecompiler      : buildDependency(butterknifePackage, 'butterknife-compiler', butterknifeVersion),
+            timber                   : buildDependency(timberPackage, 'timber', timberVersion),
+            materialsCircleLib       : buildDependency(materialCircleArc, 'circularprogressview', materialCircleVersion),
+            glide                    : buildDependency(glidePackage, 'glide', glideVersion),
+            glidecomplier            : buildDependency(glidePackage, 'compiler', glideVersion)
+    ]
+
+    testDependencies = [
+            junit     : buildDependency(junitPackage, 'junit', junitVersion),
+            annotation: buildDependency(supportPackage, 'support-annotations', supportVersion),
+            runner    : buildDependency(testPackage, 'runner', testVersion),
+            rules     : buildDependency(testPackage, 'rules', testVersion),
+            espresso  : buildDependency(espressoPackage, 'espresso-core', espressonVersion),
+            mockito   : buildDependency(mockitoPackage, 'mockito-core', mockitoVersion)
+    ]
+
+}
+
+String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}

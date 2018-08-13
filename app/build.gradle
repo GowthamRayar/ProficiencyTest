@@ -1,28 +1,103 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    def versionMajor = 1
+    def versionMinor = 0
+    def versionPatch = 1
+
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
     defaultConfig {
         applicationId "com.wipro.proficiency"
-        minSdkVersion 25
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+        disable 'RestrictedApi'
+    }
+
     buildTypes {
+        debug {
+            //--Should consist of All Debug URLs
+            buildConfigField "String", "PROFICIENCY_TEST", '"https://dl.dropboxusercontent.com/s/"'
+        }
+
         release {
-            minifyEnabled false
+            //--Should consist of All Release URLs
+
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //testing framework
+    implementation testDependencies.junit
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    androidTestImplementation testDependencies.runner
+    androidTestImplementation testDependencies.rules
+    androidTestImplementation testDependencies.espresso
+    androidTestImplementation testDependencies.annotation
+
+    //support framework
+    implementation supportDependencies.appcompact
+    implementation supportDependencies.support
+    implementation supportDependencies.design
+    implementation supportDependencies.recyclerview
+    implementation supportDependencies.cardview
+    implementation supportDependencies.percent
+
+    //retrofit framework
+    implementation retrofitDependencies.retrofit
+    implementation retrofitDependencies.convertergson
+    implementation retrofitDependencies.okhttp
+    implementation retrofitDependencies.gson
+    implementation retrofitDependencies.okhttplogging
+    implementation retrofitDependencies.rxadapter
+    implementation retrofitDependencies.rxScheduler
+
+    //reactive tools
+    implementation reactiveDependencies.reactivexAndroid
+    implementation reactiveDependencies.reactivexJava
+
+    //Productivity tools
+    implementation productivityDependencies.dagger
+    annotationProcessor productivityDependencies.daggercompiler
+    implementation productivityDependencies.calligraphy
+    implementation productivityDependencies.butterknife
+    annotationProcessor productivityDependencies.butterknifecompiler
+    implementation productivityDependencies.timber
+    implementation productivityDependencies.materialsCircleLib
+    implementation productivityDependencies.glide
+    annotationProcessor productivityDependencies.glidecomplier
+
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
 }
